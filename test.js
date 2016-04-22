@@ -14,7 +14,7 @@ var tempBuffer = aContext.createBufferSource();
 var chunks = [];
 
 if (navigator.mediaDevices.getUserMedia) {
-	navigator.mediaDevices.getUserMedia({video:false, audio:true}).then(function(stream){mediaSuccess(stream);}).catch(function(err){mediaFail(err);});
+	navigator.mediaDevices.getUserMedia({video:false, audio:true}).then(function(stream) {console.log("success"); mediaSuccess(stream);} ).catch(function(err){mediaFail(err);});
 } else if (getMedia) {
 	getMedia( streamSetting, mediaSuccess, mediaFail );
 } else {
