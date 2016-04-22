@@ -8,6 +8,7 @@ var aTag = document.getElementById('aTag');
 var aContext = new AudioContext();
 
 var aRecorder;
+var aBufferSrc = aContext.createBufferSource();
 var chunks = [];
 
 if (navigator.mediaDevices.getUserMedia) {
@@ -24,9 +25,8 @@ function mediaSuccess (stream) {
 	aRecorder.ondataavailable = function(evt) {
 		chunks.push(evt.data);
 		var aBlob = new Blob(chunks, {'type': 'audio/ogg; codecs=opus'});
-		var temp = aTag.src;
-		aTag.src = window.URL.createObjectURL(aBlob);
-		window.URL.revokeObjectURL(temp);
+		aBufferSrc.buffer = aBlob;
+		aBufferSrc.connect(aContext.destination);
 		chunks.length = 0;
 }
 
