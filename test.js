@@ -24,9 +24,9 @@ function mediaSuccess (stream) {
 	aRecorder.ondataavailable = function(evt) {
 		chunks.push(evt.data);
 		var aBlob = new Blob(chunks, {'type': 'audio/ogg; codecs=opus'});
-		var temp = window.URL.createObjectURL(aBlob);
-		window.URL.revokeObjectURL(aTag.src);
-		aTag.src = temp;
+		var temp = aTag.src;
+		aTag.src = window.URL.createObjectURL(aBlob);
+		window.URL.revokeObjectURL(temp);
 		chunks.length = 0;
 }
 
