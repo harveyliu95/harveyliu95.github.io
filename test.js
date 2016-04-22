@@ -18,7 +18,8 @@ aRecorder.ondataavailable = function(evt) {
 var chunks = [];
 
 if (navigator.mediaDevices.getUserMedia) {
-	navigator.mediaDevices.getUserMedia(streamSetting).then(function(stream){mediaSuccess(stream);}).catch(mediaFail);
+	console.log("hehe");
+	navigator.mediaDevices.getUserMedia(streamSetting).then(function(stream){mediaSuccess(stream);console.log("here?");}).catch(mediaFail);
 } else if (getMedia) {
 	getMedia( streamSetting, mediaSuccess, mediaFail );
 } else {
