@@ -39,5 +39,5 @@ function beginGetSound () {
 	setTimeout(function() {
 		aRecorder.stop();
 		beginGetSound();
-	}, 200);
+	}, 1000);
 }
