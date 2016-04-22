@@ -21,7 +21,7 @@ if (navigator.mediaDevices.getUserMedia) {
 	console.log("getUserMedia not supported");
 }
 
-var mediaSuccess = function(stream) {
+function mediaSuccess (stream) {
 	console.log("here");
 	aRecorder = new MediaRecorder( stream );
 	aRecorder.ondataavailable = function(evt) {
