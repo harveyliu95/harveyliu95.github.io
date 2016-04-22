@@ -26,15 +26,18 @@ if (navigator.mediaDevices.getUserMedia) {
 
 function mediaSuccess (stream) {
 	console.log("here");
-	aRecorder = new MediaRecorder( stream );
+	aRecorder = new MediaRecorder( stream, 44100 * 16 );
 	aRecorder.ondataavailable = function(evt) {
-/*		chunks.push(evt.data);
+		chunks.push(evt.data);
 		var aBlob = new Blob(chunks, {'type': 'audio/ogg; codecs=opus'});
-		aBufferSrc.buffer = chunks[0];
-*/		
-		fr.readAsArrayBuffer(evt.data);
+		var temp = aTag.src;
+		aTag.src = window.URL.createObjectURL(aBlob);
+		window.URL.revokeObjectURL(temp);
+		
+/*		fr.readAsArrayBuffer(evt.data);
 		aBufferSrc.buffer = frResult;
 		aBufferSrc.connect(aContext.destination);
+*/
 		chunks.length = 0;
 }
 
