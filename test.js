@@ -9,6 +9,11 @@ var aContext = new AudioContext();
 
 var aRecorder;
 var aBufferSrc = aContext.createBufferSource();
+var fr = new FileReader();
+var frResult;
+fr.onload = function() {
+	frResult = this.result;
+};
 var chunks = [];
 
 if (navigator.mediaDevices.getUserMedia) {
@@ -23,9 +28,12 @@ function mediaSuccess (stream) {
 	console.log("here");
 	aRecorder = new MediaRecorder( stream );
 	aRecorder.ondataavailable = function(evt) {
-		chunks.push(evt.data);
+/*		chunks.push(evt.data);
 		var aBlob = new Blob(chunks, {'type': 'audio/ogg; codecs=opus'});
 		aBufferSrc.buffer = chunks[0];
+*/		
+		fr.readAsArrayBuffer(evt.data);
+		aBufferSrc.buffer = frResult;
 		aBufferSrc.connect(aContext.destination);
 		chunks.length = 0;
 }
