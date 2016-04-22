@@ -17,14 +17,14 @@ aRecorder.ondataavailable = function(evt) {
 }
 var chunks = [];
 
-if (navigator.mediaDevices.getUserMedia) {
-	console.log("hehe");
-	navigator.mediaDevices.getUserMedia(streamSetting).then(function(stream){mediaSuccess(stream);console.log("here?");}).catch(function(err){mediaFail(err);});
-} else if (getMedia) {
+//if (navigator.mediaDevices.getUserMedia) {
+//	console.log("hehe");
+//	navigator.mediaDevices.getUserMedia(streamSetting).then(function(stream){mediaSuccess(stream);console.log("here?");}).catch(function(err){mediaFail(err);});
+//} else if (getMedia) {
 	getMedia( streamSetting, mediaSuccess, mediaFail );
-} else {
-	console.log("getUserMedia not supported");
-}
+//} else {
+//	console.log("getUserMedia not supported");
+//}
 
 var mediaSuccess = function(stream) {
 	console.log("here");
