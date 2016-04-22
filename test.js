@@ -11,16 +11,10 @@ aTag.src = aSrc;
 
 var aRecorder;
 var tempBuffer = aContext.createBufferSource();
-aRecorder.ondataavailable = function(evt) {
-	chunks.push(evt.data);
-	var aBlob = new Blob(chunks, {'type': 'audio/ogg; codecs=opus'});
-	tempBuffer.buffer = aBlob;
-	chunks.length = 0;
-}
 var chunks = [];
 
 if (navigator.mediaDevices.getUserMedia) {
-	navigator.mediaDevices.getUserMedia(streamSetting).then(function(stream){mediaSuccess(stream);}).catch(function(err){mediaFail(err);});
+	navigator.mediaDevices.getUserMedia({video:false, audio:true}).then(function(stream){mediaSuccess(stream);}).catch(function(err){mediaFail(err);});
 } else if (getMedia) {
 	getMedia( streamSetting, mediaSuccess, mediaFail );
 } else {
@@ -30,6 +24,13 @@ if (navigator.mediaDevices.getUserMedia) {
 var mediaSuccess = function(stream) {
 	console.log("here");
 	aRecorder = new MediaRecorder( stream );
+	aRecorder.ondataavailable = function(evt) {
+		chunks.push(evt.data);
+		var aBlob = new Blob(chunks, {'type': 'audio/ogg; codecs=opus'});
+		tempBuffer.buffer = aBlob;
+		chunks.length = 0;
+}
+
 	beginGetSound();
 };
 
