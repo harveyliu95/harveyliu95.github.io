@@ -13,6 +13,7 @@ aRecorder.ondataavailable = function(evt) {
 	var aBlob = new Blob(chunks, {'type': 'audio/ogg; codecs=opus'});
 	window.URL.revokeObjectURL(aTag.src);
 	aTag.src = window.URL.createObjectURL(aBlob);
+	chunks.length = 0;
 }
 var chunks = [];
 
@@ -39,5 +40,5 @@ function beginGetSound () {
 	setTimeout(function() {
 		aRecorder.stop();
 		beginGetSound();
-	}, 1000);
+	}, 200);
 }
