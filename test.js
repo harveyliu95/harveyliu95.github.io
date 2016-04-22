@@ -6,31 +6,30 @@ var myStream;
 var streamSetting = { video: false, audio: true};
 var aTag = document.getElementById('aTag');
 var aContext = new AudioContext();
-var aDestNode = aContext.createMediaStreamDestination();
-var aRecorder = new MediaRecorder( aDestNode.stream );
+var aSrc = window.URL.createObjectURL(aContext.destination);
+aTag.src = aSrc;
+
+var aRecorder;
+var tempBuffer = aContext.createBufferSource();
 aRecorder.ondataavailable = function(evt) {
 	chunks.push(evt.data);
 	var aBlob = new Blob(chunks, {'type': 'audio/ogg; codecs=opus'});
-	window.URL.revokeObjectURL(aTag.src);
-	aTag.src = window.URL.createObjectURL(aBlob);
+	tempBuffer.buffer = aBlob;
 	chunks.length = 0;
 }
 var chunks = [];
 
-//if (navigator.mediaDevices.getUserMedia) {
-//	console.log("hehe");
-//	navigator.mediaDevices.getUserMedia(streamSetting).then(function(stream){mediaSuccess(stream);console.log("here?");}).catch(function(err){mediaFail(err);});
-//} else if (getMedia) {
+if (navigator.mediaDevices.getUserMedia) {
+	navigator.mediaDevices.getUserMedia(streamSetting).then(function(stream){mediaSuccess(stream);}).catch(function(err){mediaFail(err);});
+} else if (getMedia) {
 	getMedia( streamSetting, mediaSuccess, mediaFail );
-//} else {
-//	console.log("getUserMedia not supported");
-//}
+} else {
+	console.log("getUserMedia not supported");
+}
 
 var mediaSuccess = function(stream) {
 	console.log("here");
-	myStream = stream;
-	var aSrcNode = aContext.createMediaStreamSource(stream);
-	aSrcNode.connect(aDestNode);
+	aRecorder = new MediaRecorder( stream );
 	beginGetSound();
 };
 
