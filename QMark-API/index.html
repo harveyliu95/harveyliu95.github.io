@@ -4,14 +4,21 @@
 	<meta http-equiv = "content-type" content = "charset=utf-8" />
 	<title>轻芒API 解析(beta)</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script type="text/javascript" src="test-v1.js"></script>
+	<script type="text/javascript" src="test.js"></script>
 </head>
 <body>
-	<div id="info">
-		<span>轻芒ID：</span><input id="inputQingmangUID" type="number" name="qingmangUID" /> <br />
-		<span>授权secret：</span><input id="inputQingmangSecret" type="text" name="qingmangSecret" /> <br />
-		<button id="buttonRetrieve">获取RSS</button>
-	</div>
-	<iframe id="docQMarkXML" type="application/xml" src=""></iframe>
+	<form id="info" onsubmit="return false;">
+		<label>轻芒ID：</label><input id="inputQingmangUID" type="number" name="qingmangUID" /> <br /> 
+		<label>授权secret：</label><input id="inputQingmangSecret" type="text" name="qingmangSecret" /> <br />
+		<label>Github令牌：</label><input id="inputGithubToken" type="text" name="qingmangSecret" /> <br />
+		<label>输出格式：</label> <br /> 
+		<input type="checkbox" id="inputJsonCheckbox" name="json"><label for="json">JSON</label> 
+		<a id="aDownloadJson" href="" style="display: none;">下载为 JSON 文档</a><br /> 
+		<input type="checkbox" id="inputHtmlCheckbox" name="html"><label for="html">HTML</label> 
+		<a id="aDownloadHtml" href="" style="display: none;">下载为 HTML 文档</a><br /> 
+		<button id="buttonRetrieve">获取</button> <br /> 
+	</form>
+	<div id="divQMarkJson" style="display: none;"></div>
+	<div id="divQMarkHtml" style="display: none;"></div>
 </body>
 </html>
