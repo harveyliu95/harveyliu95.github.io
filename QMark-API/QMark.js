@@ -74,7 +74,7 @@ function readIssuecomment(ajaxPostResponse, strGithubToken) {
 		url: strReadUrl,
 		headers: {
 			Accept: "application/vnd.github.v3+json",
-			Authorization: strGithubToken
+			Authorization: "token "+strGithubToken
 		}
 	});
 
@@ -166,4 +166,3 @@ function downloadString(text, fileType, fileName) {
   document.body.removeChild(a);
   setTimeout(function() { URL.revokeObjectURL(a.href); }, 1500);
 }
-
